@@ -1,8 +1,5 @@
-//-----------------------------------------------------------------------React
 import React, { useState } from "react";
-//-----------------------------------------------------------------------Bootstrap
 import { Card } from "react-bootstrap";
-//-----------------------------------------------------------------------CSS
 import "./ProductCard.css";
 
 const ProductCard = (props) => {

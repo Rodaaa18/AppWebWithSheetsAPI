@@ -1,17 +1,16 @@
-//-----------------------------------------------------------------------React
 import { useEffect, useState } from "react";
-//-----------------------------------------------------------------------Redux
 import { useSelector } from "react-redux";
-//-----------------------------------------------------------------------CSS
 import "./Presupuesto.css";
 
+
 const Presupuesto = () => {
+  
   const products = useSelector((state) => state.productStates.products);
   const [total, setTotal] = useState(0);
 
-  const calcTotal = () => {
-    setTotal(products.reduce((prev, curr) => (prev += curr.TOTAL), 0));
-  };
+  const calcTotal =()=>{
+    setTotal(products.reduce((prev, curr) => prev += curr.TOTAL, 0))
+  }
   useEffect(() => {
     calcTotal();
   }, [products]);
@@ -46,6 +45,6 @@ const Presupuesto = () => {
       </table>
     </div>
   );
-};
+}
 
-export default Presupuesto;
+export default Presupuesto
