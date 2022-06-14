@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.card-header{
+    padding: 2%;
+    background-color: #fac31db2;
+    width: 33%;
+}
+.card_body{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: center;
+    background: #ffc107b2;
+    margin: 0.5%;
+    border-radius: 5px;
+}
+.card__body{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-content: center;
+    width: 40%;
+}
+.card_body_text{
+    display: flex;
+    flex-flow: row wrap;
+
+}
+.card-text{
+    padding: 2%;
+}
+.cantidad{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+}
+.btn__card{
+    margin: 2%;
+    font-size: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding-bottom: 0;
+    align-content: center;
+    width: 10%;
+}
+#agregar{
+    font-family: 'Roboto', sans-serif;
+}

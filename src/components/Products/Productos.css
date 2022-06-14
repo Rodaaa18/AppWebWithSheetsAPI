@@ -1,0 +1,48 @@
+
+
+
+
+
+
+
+
+.body_card{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 1.8fr;
+    grid-template-areas:
+        "header"
+        "main";
+    height: 100vh;
+}
+.total{
+    font-size: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%;
+}
+.total__sub{
+    font-size: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%;
+    text-decoration: none;
+    color: black;
+}
+.total__sub2{
+    font-size: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: center;
+    width: 90%;
+    text-decoration: none;
+    color: black;
+}
+.total__sub2:hover{
+    color: #7e5f03;
+}
