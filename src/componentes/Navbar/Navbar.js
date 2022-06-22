@@ -4,8 +4,12 @@ import "./navbar.css"
 import {
   Link
 } from "react-router-dom";
-
+import swal from 'sweetalert';
 const Navbar = () => {
+
+  const alert=()=>{
+    swal("Estos precios están en Dolares", "Recivirás el precio total con respecto al valor del día", "info");;
+  }
   return (
     <header>
       <nav className="navbar navbar-default navbar-fixed-top">
@@ -19,9 +23,23 @@ const Navbar = () => {
             </button>
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
+            <ul className="nav_ul nav navbar-nav">
               <li><Link to="/">Inicio <span className="sr-only">(current)</span></Link></li>
-              <li><Link to="/productos">Producos</Link></li>
+              <div class="dropdown__btn dropdown">
+                <button class="btn_dd btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Productos
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><Link to="/productos">Señalización</Link></li>
+                  <li><Link onClick={alert} to="/tachos">Tachos</Link></li>
+                  <li><Link onClick={alert} to="/luces-led">Luces Led</Link></li>
+                  <li><Link to="/vallas">Vallas</Link></li>
+                  <li><Link to="/cestos">Cestos</Link></li>
+                  <li><Link to="/reductores">Reductores</Link></li>
+                  <li><Link to="/pisos">Pisos</Link></li>
+                </ul>
+              </div>
               <li><Link to="presupuesto">Presupuesto</Link></li>
               <li><Link to="#">Contacto</Link></li>
             </ul>      
@@ -29,39 +47,6 @@ const Navbar = () => {
         </div>
       </nav>
   </header>
-      /*<header>
-        <nav className="navbar_top navbar fixed-top navbar-expand-lg navbar-dark">
-          <div className="container-fluid">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#main_nav"
-            >
-              <span className="burger navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="main_nav">
-              <ul className="navbar__home">
-                <li>
-                  <Link className="navbar__item" to="/">
-                    INICIO
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navbar__item" to="/productos">
-                    PRODUCTOS
-                  </Link>
-                </li>
-                <li>
-                  <Link className="navbar__item" to="/presupuesto">
-                    PRESUPUESTO
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>  */   
   );
 }
 

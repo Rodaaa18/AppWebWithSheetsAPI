@@ -39,3 +39,22 @@
     background: black;
     border-radius: 5px;
 }
+.dropdown__btn{
+    height: 50px;
+    display: inline-block;
+    width: 20%;
+    margin: 0.7%;
+}
+.nav_ul{
+    width: 80%;
+}
+.btn_dd{
+    border:none;
+    background: transparent;
+    box-shadow: none;
+    font-weight: 400;
+    color: grey;
+}
+.btn_dd:hover{
+    background: none;
+}

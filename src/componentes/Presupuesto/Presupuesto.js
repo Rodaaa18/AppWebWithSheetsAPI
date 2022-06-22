@@ -1,50 +1,178 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProducts } from "../../redux/actions/productActions";
 import "./Presupuesto.css";
-
+import axios from "axios";
+import swal from "sweetalert";
 
 const Presupuesto = () => {
-  
   const products = useSelector((state) => state.productStates.products);
   const [total, setTotal] = useState(0);
+  const [nombreRazon, setNombreRazon] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [email, setEmail] = useState("");
+  const [precio_tot, setPrecio_tot] = useState(0);
+  const dispatch = useDispatch();
 
-  const calcTotal =()=>{
-    setTotal(products.reduce((prev, curr) => prev += curr.TOTAL, 0))
-  }
+  const calcTotal = () => {
+    setTotal(products.reduce((prev, curr) => (prev += curr.total), 0));
+  };
   useEffect(() => {
     calcTotal();
   }, [products]);
 
+  const enviarEmail = (e) => {
+    e.preventDefault();
+    try {
+      axios
+        .post(
+          "http://localhost:8000/email/form",
+          {
+            nombreRazon,
+            direccion,
+            telefono,
+            email,
+            products,
+            total,
+            precio_tot,
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            swal(
+              "Email enviado Correctamente!",
+              "Recibirás respuesta a la brevedad",
+              "success"
+            );
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
-      <table className="tabla">
-        <thead>
-          <tr>
-            <th>Descripcion</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={index}>
-              <td>{product.DESCRIPCION}</td>
-              <td>{product.CANTIDAD}</td>
-              <td>{product.TOTAL}</td>
+      <form className="form" action="" onSubmit={enviarEmail}>
+        <table className="tabla">
+          <thead>
+            <tr>
+              <th>Descripcion</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Accion</th>
             </tr>
-          ))}
-        </tbody>
-
-        <tfoot>
-          <tr>
-            <td></td>
-            <td></td>
-            <td>TOTAL: {total}</td>
-          </tr>
-        </tfoot>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((product, index) => (
+              <tr key={index}>
+                <td className="description__data">
+                  <input
+                    disabled="true"
+                    type="text"
+                    name="descripcion"
+                    id="descripcion"
+                    value={product.descripcion}
+                  />
+                </td>
+                <td>
+                  <input
+                    disabled="true"
+                    type="number"
+                    name="cantidad"
+                    id="cantidad"
+                    value={product.cantidad}
+                  />
+                </td>
+                <td>
+                  <input
+                    disabled="true"
+                    type="number"
+                    name="total"
+                    id="total"
+                    value={product.total}
+                    onChange={(e) => setPrecio_tot(e.target.value)}
+                  />
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    type="submit"
+                    onClick={() => dispatch(removeProducts(product))}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                TOTAL:{" "}
+                <input
+                  disabled="true"
+                  type="number"
+                  name="total_tot"
+                  id="total_tot"
+                  value={total}
+                />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div className="line" />
+        <div className="form__body">
+          <label htmlFor="nombreRazon">
+            Nombre o Razón Social:
+            <input
+              type="text"
+              name="nombreRazon"
+              id="nombreRazon"
+              onChange={(e) => setNombreRazon(e.target.value)}
+            />
+          </label>
+          <label htmlFor="direccion">
+            Dirección (Calle, N°, Piso, Barrio, CP, Localidad, Provincia):
+            <input
+              type="text"
+              name="direccion"
+              id="direccion"
+              onChange={(e) => setDireccion(e.target.value)}
+            />
+          </label>
+          <label htmlFor="telefono">
+            Teléfono:
+            <input
+              type="tel"
+              name="telefono"
+              id="telefono"
+              onChange={(e) => setTelefono(e.target.value)}
+            />
+          </label>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </label>
+        </div>
+        <button className="btn btn-primary" type="submit">
+          Enviar Presupuesto
+        </button>
+      </form>
     </div>
   );
-}
+};
 
-export default Presupuesto
+export default Presupuesto;

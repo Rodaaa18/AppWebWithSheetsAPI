@@ -4,30 +4,31 @@ import "./ProductCard.css";
 
 const ProductCard = (props) => {
   const { content, handleSubmit } = props;
-
-  const [cantidad, setCantidad] = useState(Number(content.CANTIDAD));
+  console.log(content);
+  const [cantidad, setCantidad] = useState(Number(content.cantidad));
 
   return (
     <div className="col-md-12">
       <Card className="card_body">
         <div className="card-header">
-          <h5 className="card-title">{content.DESCRIPCION}</h5>
+          <h5 className="card-title">{content.descripcion}</h5>
         </div>
         <div className="card__body">
-          <img src={content.IMAGEN} alt="Imagen del Producto" />
+          <img
+            className="card__img"
+            src={content.imagen}
+            alt="Imagen del Producto"
+          />
           Precio Unitario:
-          <p>{content.PRECIO_UNITARIO}</p>
-          <label className="card_body_text">
-            {" "}
-            Cantidad:
-            <input
-              className="cantidad"
-              type="number"
-              value={cantidad}
-              min="0"
-              onChange={(e) => setCantidad(e.target.value)}
-            />
-          </label>
+          <p>{content.precio}</p>
+          <label className="card_body_text"> Cantidad: </label>
+          <input
+            className="cantidad"
+            type="number"
+            value={cantidad}
+            min="0"
+            onChange={(e) => setCantidad(e.target.value)}
+          />
         </div>
         <button
           className="btn__card btn btn-primary glyphicon glyphicon-shopping-cart"

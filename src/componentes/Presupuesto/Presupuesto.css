@@ -2,3 +2,44 @@
     margin-top: 150px;
     margin-left: 50px;
 }
+.form{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+}
+.form__body{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 66%;
+}
+div label{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    width: 80%;
+}
+div label input{
+    width: 40%;
+}
+td input{
+    border: none;
+    background-color: transparent;
+}
+#descripcion{
+    width: 100%;
+}
+.description__data{
+    width: 60%;
+}
+.line{
+    border: 1px solid grey;
+    width: 85%;
+    margin: 2%;
+}

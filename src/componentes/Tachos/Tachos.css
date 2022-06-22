@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+.container-flex{
+    margin-top: 100px;
+}
 .card-header{
     padding: 2%;
     background-color: #fac31db2;
