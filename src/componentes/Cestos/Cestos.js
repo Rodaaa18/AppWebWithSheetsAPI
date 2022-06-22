@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ProductCard from "../Cards";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
+import { cestoListMock } from "../../mockdata/mockCestoList";
 
 const Cestos = () => {
   const [cestosList, setCestosList] = React.useState([]);
@@ -17,10 +18,17 @@ const Cestos = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:8000/products/cestos").then((res) => {
-      setLoading(false);
-      setCestosList(res.data.filter((cesto) => cesto["id"]));
-    });
+    axios
+      .get("http://localhost:8000/products/cestos")
+      .then((res) => {
+        setLoading(false);
+        setCestosList(res.data.filter((cesto) => cesto["id"]));
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
+        setCestosList(cestoListMock);
+      });
   }, []);
 
   const handleSubmit = (cesto, cantidad) => {
@@ -31,45 +39,45 @@ const Cestos = () => {
   const formatPrice = (number) => {
     return Number(number.replace(/[$.]/g, "").replace(",", "."));
   };
-  
+
   useEffect(() => {
     setTotal(products.reduce((prev, curr) => (prev += curr.total), 0));
   }, [products]);
 
   return (
     <>
-    <div className="spinner">
-      <ClipLoader color="black" loading={loading} size={150}/>
-    </div> 
-    <section className="body_card">
-      <article className="container-flex">
-        <div className="row">
-          {!isEmpty(cestosList) &&
-            cestosList.map((cesto, index) => (
-              <ProductCard
-                key={index}
-                content={cesto}
-                handleSubmit={handleSubmit}
-                products={products}
-              />
-            ))}        
-        </div>
-        <div>
-          <strong
-            className="total"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="No inlcuye Precio de envío"
-          >
-            TOTAL CON IVA: {`$${total}`}
-          </strong>
-          <strong className="total__sub">(No incluye precio de envío)</strong>
-          <Link className="total__sub2" to="/presupuesto">
-            Ver presupuesto{" "}
-          </Link>
-        </div>
-      </article>
-    </section>
+      <div className="spinner">
+        <ClipLoader color="black" loading={loading} size={150} />
+      </div>
+      <section className="body_card">
+        <article className="container-flex">
+          <div className="row">
+            {!isEmpty(cestosList) &&
+              cestosList.map((cesto, index) => (
+                <ProductCard
+                  key={index}
+                  content={cesto}
+                  handleSubmit={handleSubmit}
+                  products={products}
+                />
+              ))}
+          </div>
+          <div>
+            <strong
+              className="total"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="No inlcuye Precio de envío"
+            >
+              TOTAL CON IVA: {`$${total}`}
+            </strong>
+            <strong className="total__sub">(No incluye precio de envío)</strong>
+            <Link className="total__sub2" to="/presupuesto">
+              Ver presupuesto{" "}
+            </Link>
+          </div>
+        </article>
+      </section>
     </>
   );
 };

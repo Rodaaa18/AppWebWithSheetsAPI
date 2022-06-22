@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ProductCard from "../Cards";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
+import { reductoresListMock } from "../../mockdata/mockReductoresList";
 
 const Reductores = () => {
   const [reductList, setReductList] = React.useState([]);
@@ -18,10 +19,17 @@ const Reductores = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get("http://localhost:8000/products/reductores").then((res) => {
-      setLoading(false);
-      setReductList(res.data.filter((reduct) => reduct["id"]));
-    });
+    axios
+      .get("http://localhost:8000/products/reductores")
+      .then((res) => {
+        setLoading(false);
+        setReductList(res.data.filter((reduct) => reduct["id"]));
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
+        setReductList(reductoresListMock);
+      });
   }, []);
 
   const handleSubmit = (reduct, cantidad) => {
@@ -32,45 +40,45 @@ const Reductores = () => {
   const formatPrice = (number) => {
     return Number(number.replace(/[$.]/g, "").replace(",", "."));
   };
-  
+
   useEffect(() => {
     setTotal(products.reduce((prev, curr) => (prev += curr.total), 0));
   }, [products]);
 
   return (
     <>
-    <div className="spinner">
-      <ClipLoader color="black" loading={loading} size={150}/>
-    </div> 
-    <section className="body_card">
-      <article className="container-flex">
-        <div className="row">
-          {!isEmpty(reductList) &&
-            reductList.map((reduct, index) => (
-              <ProductCard
-                key={index}
-                content={reduct}
-                handleSubmit={handleSubmit}
-                products={products}
-              />
-            ))}        
-        </div>
-        <div>
-          <strong
-            className="total"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="No inlcuye Precio de envío"
-          >
-            TOTAL CON IVA: {`$${total}`}
-          </strong>
-          <strong className="total__sub">(No incluye precio de envío)</strong>
-          <Link className="total__sub2" to="/presupuesto">
-            Ver presupuesto{" "}
-          </Link>
-        </div>
-      </article>
-    </section>
+      <div className="spinner">
+        <ClipLoader color="black" loading={loading} size={150} />
+      </div>
+      <section className="body_card">
+        <article className="container-flex">
+          <div className="row">
+            {!isEmpty(reductList) &&
+              reductList.map((reduct, index) => (
+                <ProductCard
+                  key={index}
+                  content={reduct}
+                  handleSubmit={handleSubmit}
+                  products={products}
+                />
+              ))}
+          </div>
+          <div>
+            <strong
+              className="total"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="No inlcuye Precio de envío"
+            >
+              TOTAL CON IVA: {`$${total}`}
+            </strong>
+            <strong className="total__sub">(No incluye precio de envío)</strong>
+            <Link className="total__sub2" to="/presupuesto">
+              Ver presupuesto{" "}
+            </Link>
+          </div>
+        </article>
+      </section>
     </>
   );
 };
