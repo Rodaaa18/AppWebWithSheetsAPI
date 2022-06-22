@@ -6,15 +6,20 @@ import "../Productos/Productos.css";
 import { isEmpty } from "lodash";
 import { Link } from "react-router-dom";
 import ProductCard from "../Cards";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useState } from "react";
 
 const Reductores = () => {
   const [reductList, setReductList] = React.useState([]);
   const [total, setTotal] = React.useState(0);
   const products = useSelector((state) => state.productStates.products);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios.get("http://localhost:8000/products/reductores").then((res) => {
+      setLoading(false);
       setReductList(res.data.filter((reduct) => reduct["id"]));
     });
   }, []);
@@ -33,6 +38,10 @@ const Reductores = () => {
   }, [products]);
 
   return (
+    <>
+    <div className="spinner">
+      <ClipLoader color="black" loading={loading} size={150}/>
+    </div> 
     <section className="body_card">
       <article className="container-flex">
         <div className="row">
@@ -62,6 +71,7 @@ const Reductores = () => {
         </div>
       </article>
     </section>
+    </>
   );
 };
 

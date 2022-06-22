@@ -43,7 +43,8 @@
     height: 50px;
     display: inline-block;
     width: 20%;
-    margin: 0.7%;
+    margin: 0;
+    padding: 0;
 }
 .nav_ul{
     width: 80%;
@@ -54,6 +55,7 @@
     box-shadow: none;
     font-weight: 400;
     color: grey;
+    padding: 10px;
 }
 .btn_dd:hover{
     background: none;

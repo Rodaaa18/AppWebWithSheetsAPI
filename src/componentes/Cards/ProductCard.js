@@ -8,7 +8,7 @@ const ProductCard = (props) => {
   const [cantidad, setCantidad] = useState(Number(content.cantidad));
 
   return (
-    <div className="col-md-12">
+    <div className="col-xs-12 col-sm-6 col-md-8 col-lg-12">
       <Card className="card_body">
         <div className="card-header">
           <h5 className="card-title">{content.descripcion}</h5>

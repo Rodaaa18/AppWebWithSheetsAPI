@@ -6,15 +6,19 @@ import "../Productos/Productos.css";
 import { isEmpty } from "lodash";
 import { Link } from "react-router-dom";
 import ProductCard from "../Cards";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useState } from "react";
 
 const Luces = () => {
   const [lucesList, setLucesList] = React.useState([]);
   const [total, setTotal] = React.useState(0);
   const products = useSelector((state) => state.productStates.products);
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     axios.get("http://localhost:8000/products/luces").then((res) => {
+      setLoading(false);
       setLucesList(res.data.filter((luz) => luz["id"]));
     });
   }, []);
@@ -33,6 +37,10 @@ const Luces = () => {
   }, [products]);
 
   return (
+    <>
+    <div className="spinner">
+      <ClipLoader color="black" loading={loading} size={150}/>
+    </div> 
     <section className="body_card">
       <article className="container-flex">
         <div className="row">
@@ -62,6 +70,7 @@ const Luces = () => {
         </div>
       </article>
     </section>
+    </>
   );
 };
 

@@ -41,7 +41,6 @@ const Navbar = () => {
                 </ul>
               </div>
               <li><Link to="presupuesto">Presupuesto</Link></li>
-              <li><Link to="#">Contacto</Link></li>
             </ul>      
           </div>
         </div>

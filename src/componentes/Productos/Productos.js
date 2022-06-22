@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import axios from "axios";
 import { addProducts } from "../../redux/actions/productActions";
-
+import ClipLoader from "react-spinners/ClipLoader";
 // Componentes
 import ProductCard from "../Cards";
 
@@ -17,15 +17,17 @@ import { productListMock } from "../../mockdata/mockProductList";
 const Productos = () => {
   const [productList, setProductList] = useState([]);
   const [total, setTotal] = useState(0);
-
+  const [loading, setLoading] = useState(true);
   const products = useSelector((state) => state.productStates.products);
 
   const dispatch = useDispatch();
   // setProductList(response.data.filter((product) => product["id"]));
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:8000/products/senalizacion")
       .then((response) => {
+        setLoading(false);
         setProductList(response.data.filter((product) => product["id"]));
       })
       .catch((error) => {
@@ -50,18 +52,23 @@ const Productos = () => {
   }, [products]);
 
   return (
+    <>
+    <div className="spinner">
+      <ClipLoader color="black" loading={loading} size={150}/>
+    </div>    
     <section className="body_card">
       <article className="container-flex">
         <div className="row">
           {!isEmpty(productList) &&
             productList.map((product, index) => (
+              
               <ProductCard
                 key={index}
                 content={product}
                 handleSubmit={handleSubmit}
                 products={products}
               />
-            ))}
+            )) } 
         </div>
         <strong
           className="total"
@@ -77,6 +84,7 @@ const Productos = () => {
         </Link>
       </article>
     </section>
+    </>
   );
 };
 

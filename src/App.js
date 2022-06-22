@@ -18,6 +18,7 @@ import Luces from "./componentes/Luces-Led/Luces";
 import Vallas from "./componentes/Vallas/Vallas";
 import Reductores from "./componentes/Reductores/Reductores";
 import Pisos from "./componentes/Pisos/Pisos";
+import Contacto from "./paginas/Contacto/Contacto";
 
 function App() {
   axios.get("http://localhost:8000/").then((res) => console.log(res));

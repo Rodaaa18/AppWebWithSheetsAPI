@@ -18,10 +18,33 @@ const Presupuesto = () => {
   const calcTotal = () => {
     setTotal(products.reduce((prev, curr) => (prev += curr.total), 0));
   };
+
   useEffect(() => {
     calcTotal();
   }, [products]);
 
+  const eliminarProducto = (value) => {
+    swal({
+      title: "¿Estas seguro?",
+      text: `Eliminaras el Producto ${value.descripcion}`,
+      icon: "warning",
+      buttons: ["Cancelar", "Eliminar"],
+    }).then((resultado) => {
+      if (resultado) {
+        // Hicieron click en "Sí"
+        dispatch(removeProducts(value));
+        swal("Eliminado", `¡${value.descripcion} eliminado!`, "success");
+      } else {
+        // Dijeron que no
+        swal({
+          title: "Cancelado",
+          text: `No se elimino el Producto ${value.descripcion}`,
+          icon: "error",
+          timer: 800,
+        });
+      }
+    });
+  };
   const enviarEmail = (e) => {
     e.preventDefault();
     try {
@@ -44,7 +67,7 @@ const Presupuesto = () => {
           }
         )
         .then((res) => {
-          if (res.status === 200) {
+          if (res.data === "received") {
             swal(
               "Email enviado Correctamente!",
               "Recibirás respuesta a la brevedad",
@@ -62,15 +85,15 @@ const Presupuesto = () => {
         <table className="tabla">
           <thead>
             <tr>
-              <th>Descripcion</th>
-              <th>Cantidad</th>
-              <th>Total</th>
-              <th>Accion</th>
+              <th>Descripción</th>
+              <th className="thCantidad">Cantidad</th>
+              <th className="thTotal">Total</th>
+              <th>Acción</th>
             </tr>
           </thead>
           <tbody>
             {products.map((product, index) => (
-              <tr key={index}>
+              <tr key={index} className="tr">
                 <td className="description__data">
                   <input
                     disabled="true"
@@ -80,7 +103,7 @@ const Presupuesto = () => {
                     value={product.descripcion}
                   />
                 </td>
-                <td>
+                <td className="tdCantidad">
                   <input
                     disabled="true"
                     type="number"
@@ -89,7 +112,7 @@ const Presupuesto = () => {
                     value={product.cantidad}
                   />
                 </td>
-                <td>
+                <td className="tdTotal">
                   <input
                     disabled="true"
                     type="number"
@@ -99,11 +122,11 @@ const Presupuesto = () => {
                     onChange={(e) => setPrecio_tot(e.target.value)}
                   />
                 </td>
-                <td>
+                <td className="tdBtn">
                   <button
                     className="btn btn-danger"
-                    type="submit"
-                    onClick={() => dispatch(removeProducts(product))}
+                    type="button"
+                    onClick={() => eliminarProducto(product)}
                   >
                     Eliminar
                   </button>
@@ -115,8 +138,8 @@ const Presupuesto = () => {
             <tr>
               <td></td>
               <td></td>
-              <td>
-                TOTAL:{" "}
+              <td>TOTAL: </td>
+              <td className="total_tot">
                 <input
                   disabled="true"
                   type="number"
@@ -139,7 +162,7 @@ const Presupuesto = () => {
               onChange={(e) => setNombreRazon(e.target.value)}
             />
           </label>
-          <label htmlFor="direccion">
+          <label htmlFor="direccion" id="direccionLabel">
             Dirección (Calle, N°, Piso, Barrio, CP, Localidad, Provincia):
             <input
               type="text"

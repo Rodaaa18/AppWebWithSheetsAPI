@@ -1,6 +1,7 @@
 .tabla{
     margin-top: 150px;
-    margin-left: 50px;
+    margin-left: 37%;
+    width: 100%;
 }
 .form{
     display: flex;
@@ -15,7 +16,7 @@
     justify-content: space-between;
     align-content: center;
     align-items: flex-start;
-    width: 66%;
+    width: 100%;
 }
 div label{
     display: flex;
@@ -26,20 +27,83 @@ div label{
     width: 80%;
 }
 div label input{
-    width: 40%;
+    width: 100%;
 }
 td input{
     border: none;
     background-color: transparent;
-}
-#descripcion{
     width: 100%;
 }
-.description__data{
-    width: 60%;
+#descripcion{
+    margin: 4% 4% 0 0;
 }
+#cantidad{
+    margin-left: 9%;
+}
+.thTotal{
+    width: 10%;
+}
+.tdTotal{
+    width: 10%;
+}
+.thCantidad{
+    width: 10%;
+}
+.thCantidad{
+    width: 10%;
+}
+.description__data{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
 .line{
     border: 1px solid grey;
     width: 85%;
     margin: 2%;
+}
+.btn{
+    margin: 2%;
+}
+.total_tot{
+    display:flex;
+    justify-content: row   wrap;
+    align-content: center;
+    align-items: center;
+}
+#total_tot{
+    display: flex;
+    font-weight: 700;
+    font-size: 1.5em;
+    margin-left: 1%;
+}
+@media(max-width: 904px) {
+    #direccionLabel{
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+    }
+}
+@media(max-width: 442px) {
+    .tabla{
+        margin-left: 0;
+    }
+}
+@media(max-width: 442px) {
+    .total_tot{
+        display:block;
+        height: 50px;
+    }
+    #total_tot{
+        display: flex;
+        font-weight: 700;
+        font-size: 1em;
+        margin-left: 1%;
+    }
 }

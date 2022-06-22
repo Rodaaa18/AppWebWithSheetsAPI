@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <body className="body">
+    <section className="body">
       <div
         className="carousel fade-carousel slide"
         data-ride="carousel"
@@ -77,7 +77,7 @@ const Home = () => {
           </div>
         </aside>
       </section>
-    </body>
+    </section>
   );
 };
 
