@@ -1,14 +1,20 @@
 .tabla{
-    margin-top: 150px;
+    margin-top: 10%;
     margin-left: 37%;
     width: 100%;
 }
 .form{
+    border: 2px solid #a61f34;
+    border-radius: 10px;
+    margin-top: 100px;
+    background: #680816cc;
     display: flex;
     flex-flow: column wrap;
     justify-content: space-around;
     align-content: center;
     align-items: center;
+    width: 100%;
+    color: antiquewhite;
 }
 .form__body{
     display: flex;
@@ -28,11 +34,15 @@ div label{
 }
 div label input{
     width: 100%;
+    color: black;
 }
 td input{
     border: none;
     background-color: transparent;
     width: 100%;
+}
+.btn_color{
+    color: black;
 }
 #descripcion{
     margin: 4% 4% 0 0;
@@ -68,6 +78,14 @@ td input{
 }
 .btn{
     margin: 2%;
+}
+.nota_center{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
 }
 .total_tot{
     display:flex;

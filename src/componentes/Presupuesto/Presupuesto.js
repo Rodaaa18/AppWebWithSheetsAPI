@@ -47,9 +47,24 @@ const Presupuesto = () => {
   };
   const enviarEmail = (e) => {
     e.preventDefault();
-    try {
+    
+    if(products.length === 0){
+      swal("Error", "¡No se encuentran Productos!", "error");
+      return;
+    }
+    if(nombreRazon === "" || direccion === "" || telefono === "" || email === ""){
+    swal("Error", "¡Todos los campos son obligatorios!", "error");
+    return;
+    }      
+    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email) === false){
+      swal("Error", "¡La dirección de email " + email + " es incorrecta!.", "error");
+      return;
+    }
+    
+     try {
       axios
         .post(
+          
           "http://localhost:8000/email/form",
           {
             nombreRazon,
@@ -68,20 +83,30 @@ const Presupuesto = () => {
         )
         .then((res) => {
           if (res.data === "received") {
-            swal(
-              "Email enviado Correctamente!",
-              "Recibirás respuesta a la brevedad",
+            return swal(
+              "¡Email enviado Correctamente!",
+              "¡Recibirás respuesta a la brevedad",
               "success"
             );
           }
         });
-    } catch (err) {
+    }catch (err) {
+      return swal(
+        "¡No se puede enviar el Presupuesto!",
+        `Fallo en la API, error ${err}`,
+        "error"
+      );
       console.log(err);
-    }
+    } 
   };
+    
+  
   return (
-    <div>
+    <div className="container">      
       <form className="form" action="" onSubmit={enviarEmail}>
+      <div className="nota_center">
+        <h1>Nota de Pedido</h1>
+      </div>
         <table className="tabla">
           <thead>
             <tr>
@@ -96,7 +121,7 @@ const Presupuesto = () => {
               <tr key={index} className="tr">
                 <td className="description__data">
                   <input
-                    disabled="true"
+                    disabled={true}
                     type="text"
                     name="descripcion"
                     id="descripcion"
@@ -105,8 +130,8 @@ const Presupuesto = () => {
                 </td>
                 <td className="tdCantidad">
                   <input
-                    disabled="true"
-                    type="number"
+                    disabled={true}
+                    type="text"
                     name="cantidad"
                     id="cantidad"
                     value={product.cantidad}
@@ -114,8 +139,8 @@ const Presupuesto = () => {
                 </td>
                 <td className="tdTotal">
                   <input
-                    disabled="true"
-                    type="number"
+                    disabled={true}
+                    type="text"
                     name="total"
                     id="total"
                     value={product.total}
@@ -141,8 +166,8 @@ const Presupuesto = () => {
               <td>TOTAL: </td>
               <td className="total_tot">
                 <input
-                  disabled="true"
-                  type="number"
+                  disabled={true}
+                  type="text"
                   name="total_tot"
                   id="total_tot"
                   value={total}
@@ -183,15 +208,15 @@ const Presupuesto = () => {
           <label htmlFor="email">
             Email:
             <input
-              type="email"
+              type="text"
               name="email"
               id="email"
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
         </div>
-        <button className="btn btn-primary" type="submit">
-          Enviar Presupuesto
+        <button className="btn_color btn btn-secondary" type="submit">
+          Enviar Nota de Pedido
         </button>
       </form>
     </div>

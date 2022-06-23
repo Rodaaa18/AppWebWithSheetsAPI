@@ -4,11 +4,10 @@ import "./ProductCard.css";
 
 const ProductCard = (props) => {
   const { content, handleSubmit } = props;
-  console.log(content);
   const [cantidad, setCantidad] = useState(Number(content.cantidad));
 
   return (
-    <div className="col-xs-12 col-sm-6 col-md-8 col-lg-12">
+    <div className="container-flex contenedor col-xs-12 col-sm-6 col-md-8 col-lg-12">
       <Card className="card_body">
         <div className="card-header">
           <h5 className="card-title">{content.descripcion}</h5>
@@ -19,8 +18,8 @@ const ProductCard = (props) => {
             src={content.imagen}
             alt="Imagen del Producto"
           />
-          Precio Unitario:
-          <p>{content.precio}</p>
+          <p className="precio_unitario_text">Precio Unitario:</p>
+          <p className="precio_unitario">{content.precio}</p>
           <label className="card_body_text"> Cantidad: </label>
           <input
             className="cantidad"
@@ -31,7 +30,7 @@ const ProductCard = (props) => {
           />
         </div>
         <button
-          className="btn__card btn btn-primary glyphicon glyphicon-shopping-cart"
+          className="btn__card btn btn-secondary glyphicon glyphicon-shopping-cart"
           type="submit"
           onClick={() => handleSubmit(content, cantidad)}
         >

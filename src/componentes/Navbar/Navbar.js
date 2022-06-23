@@ -6,14 +6,14 @@ import swal from "sweetalert";
 const Navbar = () => {
   const alert = () => {
     swal(
-      "Estos precios están en Dolares",
-      "Recivirás el precio total con respecto al valor del día",
+      "Estos precios están en Dólares",
+      "Recibirás el precio totál con respecto al valor del día",
       "info"
     );
   };
   return (
     <header>
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="nav_link navbar navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
             <button
@@ -34,11 +34,7 @@ const Navbar = () => {
             id="bs-example-navbar-collapse-1"
           >
             <ul className="nav_ul nav navbar-nav">
-              <li>
-                <Link to="/">
-                  Inicio <span className="sr-only">(current)</span>
-                </Link>
-              </li>
+              
               <div className="dropdown__btn dropdown">
                 <button
                   className="btn_dd btn btn-default dropdown-toggle"
@@ -48,12 +44,12 @@ const Navbar = () => {
                   aria-haspopup="true"
                   aria-expanded="true"
                 >
-                  Productos
+                  Rubros
                   <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li>
-                    <Link to="/productos">Señalización</Link>
+                    <Link to="/">Señalización</Link>
                   </li>
                   <li>
                     <Link onClick={alert} to="/tachos">
@@ -80,7 +76,7 @@ const Navbar = () => {
                 </ul>
               </div>
               <li>
-                <Link to="presupuesto">Presupuesto</Link>
+                <Link to="presupuesto" className="nota_pedido"> Nota de Pedido</Link>
               </li>
             </ul>
           </div>

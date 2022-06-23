@@ -26,6 +26,7 @@ const Tachos = () => {
         setTachosList(res.data.filter((piso) => piso["id"]));
       })
       .catch((error) => {
+        setLoading(false);
         console.log("Error: ", error);
         console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
         setTachosList(tachosListMock);

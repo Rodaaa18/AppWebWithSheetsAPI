@@ -31,6 +31,7 @@ const Productos = () => {
         setProductList(response.data.filter((product) => product["id"]));
       })
       .catch((error) => {
+        setLoading(false);
         console.log("Error: ", error);
         console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
         setProductList(productListMock);

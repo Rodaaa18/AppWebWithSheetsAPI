@@ -26,6 +26,7 @@ const Reductores = () => {
         setReductList(res.data.filter((reduct) => reduct["id"]));
       })
       .catch((error) => {
+        setLoading(false);
         console.log("Error: ", error);
         console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
         setReductList(reductoresListMock);

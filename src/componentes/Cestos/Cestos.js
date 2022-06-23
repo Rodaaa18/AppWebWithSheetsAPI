@@ -25,6 +25,7 @@ const Cestos = () => {
         setCestosList(res.data.filter((cesto) => cesto["id"]));
       })
       .catch((error) => {
+        setLoading(false);
         console.log("Error: ", error);
         console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
         setCestosList(cestoListMock);

@@ -25,6 +25,7 @@ const Luces = () => {
         setLucesList(res.data.filter((luz) => luz["id"]));
       })
       .catch((error) => {
+        setLoading(false);
         console.log("Error: ", error);
         console.log("LISTA DE PRODUCTOS ACTUALIZADA CON MOCK DATA");
         setLucesList(lucesListMock);

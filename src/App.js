@@ -26,8 +26,7 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/productos" exact element={<Productos />} />
+        <Route path="/" exact element={<Productos />} />
         <Route path="/presupuesto" exact element={<Presupuesto />} />
         <Route path="/cestos" exact element={<Cestos />} />
         <Route path="/tachos" exact element={<Tachos />} />

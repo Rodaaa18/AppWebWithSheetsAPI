@@ -3,6 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+.navbar{
+    background: #a61f34;
+    
+}
+
 
 .navbar_top{
     font-family: 'Montserrat', sans-serif;
@@ -54,9 +59,21 @@
     background: transparent;
     box-shadow: none;
     font-weight: 400;
-    color: grey;
+    color:antiquewhite;
     padding: 10px;
+    text-shadow: none;
 }
 .btn_dd:hover{
     background: none;
+}
+.nota_pedido{
+    color:antiquewhite;
+}
+.nav > li > a:hover{
+    background: none;
+    color: #333;
+}
+.nav > li > a:focus{
+    background: none;
+    color: antiquewhite;
 }

@@ -3,20 +3,46 @@
     padding: 0;
     box-sizing: border-box;
 }
+.contenedor{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+}
 .card-header{
     padding: 2%;
-    background-color: #fac31db2;
+    background-color: #680817;
     width: 33%;
+    border-radius: 10px;
 }
 .card_body{
     display:flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-content: center;
-    background: #ffc107b2;
-    margin: 0.5%;
-    border-radius: 5px;
-    border: 2px solid black;
+    background: #a61f34;
+    margin: 0.1%;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    width: 90%;
+}
+.card_body:hover{
+    filter: opacity(0.9);
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.precio_unitario{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    margin-left: 2%;
+}
+.precio_unitario_text{
+    color: antiquewhite;
+}
+.card-title{
+    color: antiquewhite;
 }
 .card__body{
     display: flex;
@@ -28,6 +54,7 @@
 }
 .card_body_text{
     width: 1%;
+    color: antiquewhite;
 }
 .card-text{
     padding: 2%;
@@ -35,8 +62,10 @@
 .card__img{
     max-width: 150px;
     height: 90px ;
+    border-radius: 10px;
 }
 .cantidad{
+    color: black;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
