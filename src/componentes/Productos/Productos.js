@@ -5,6 +5,7 @@ import { isEmpty } from "lodash";
 import axios from "axios";
 import { addProducts } from "../../redux/actions/productActions";
 import ClipLoader from "react-spinners/ClipLoader";
+import swal from "sweetalert";
 // Componentes
 import ProductCard from "../Cards";
 
@@ -39,10 +40,65 @@ const Productos = () => {
   }, []);
 
   const handleSubmit = (product, cantidad) => {
+    let finded = products.find((products) => products.id === product.id);
+    if(cantidad > 1000){
+      swal({
+        title: "Error",
+        text: "La cantidad maxima es de 1000",
+        icon: "error",
+      });
+      return;
+    };
+    if(products.length !== 0 && finded != undefined){
+      if(finded){
+        swal({
+          title: "Alerta",
+          text: `El producto ya esta en el carrito, desea sumarle ${cantidad}?`,
+          icon: "warning",
+          buttons: ["Cancelar", "Agregar"],
+        }).then(resp=>{
+          if(resp){
+            finded.cantidad = Math.floor(finded.cantidad);
+            cantidad = Math.floor(cantidad);
+            if((finded.cantidad += cantidad) >1000){
+              swal({
+                title: "Error",
+                text: "La cantidad maxima es de 1000",
+                icon: "error",
+              });
+              return finded.cantidad -= cantidad;
+            }else{
+              debugger;
+              finded.total = finded.cantidad * formatPrice(finded.precio);
+              dispatch(addProducts(finded));
+              swal({
+                title: "Agregado",
+                text: `se agregó ${product.descripcion} al carrito`,
+                icon: "success",
+                timer: 800
+              });
+            };      
+            return;
+          }else{
+            swal({
+              title: "Alerta",
+              text: `Operación cancelada`,
+              icon: "warning",
+            });
+          };
+        });
+      };
+      return;
+    };
     product.cantidad = cantidad;
     product.total = cantidad * formatPrice(product.precio);
-    console.log(product);
-    dispatch(addProducts(product));
+    dispatch(addProducts(product)); 
+    swal({
+      title: "Agregado",
+      text: `se agregó ${product.descripcion} al carrito`,
+      icon: "success",
+      timer: 800
+    });
   };
 
   const formatPrice = (number) => {

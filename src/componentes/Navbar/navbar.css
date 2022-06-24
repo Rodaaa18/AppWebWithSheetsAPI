@@ -77,3 +77,10 @@
     background: none;
     color: antiquewhite;
 }
+.navbar-toggle{
+    background-color: #a61f34;
+    border: 0.5px solid black;
+}
+.icon-bar{
+    background-color:black;
+}

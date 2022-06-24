@@ -9,6 +9,7 @@ import ProductCard from "../Cards";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { reductoresListMock } from "../../mockdata/mockReductoresList";
+import swal from "sweetalert";
 
 const Reductores = () => {
   const [reductList, setReductList] = React.useState([]);
@@ -34,9 +35,65 @@ const Reductores = () => {
   }, []);
 
   const handleSubmit = (reduct, cantidad) => {
+    let finded = products.find((reducts) => reducts.id === reduct.id);
+    if(cantidad > 1000){
+      swal({
+        title: "Error",
+        text: "La cantidad maxima es de 1000",
+        icon: "error",
+      });
+      return;
+    };
+    if(products.length !== 0 && finded != undefined){
+      if(finded){
+        swal({
+          title: "Alerta",
+          text: `El producto ya esta en el carrito, desea sumarle ${cantidad}?`,
+          icon: "warning",
+          buttons: ["Cancelar", "Agregar"],
+        }).then(resp=>{
+          if(resp){
+            finded.cantidad = Math.floor(finded.cantidad);
+            cantidad = Math.floor(cantidad);
+            if((finded.cantidad += cantidad) >1000){
+              swal({
+                title: "Error",
+                text: "La cantidad maxima es de 1000",
+                icon: "error",
+              });
+              return finded.cantidad -= cantidad;
+            }else{
+              debugger;
+              finded.total = finded.cantidad * formatPrice(finded.precio);
+              dispatch(addProducts(finded));
+              swal({
+                title: "Agregado",
+                text: `se agregó ${reduct.descripcion} al carrito`,
+                icon: "success",
+                timer: 800
+              });
+            };      
+            return;
+          }else{
+            swal({
+              title: "Alerta",
+              text: `Operación cancelada`,
+              icon: "warning",
+            });
+          };
+        });
+      };
+      return;
+    };
     reduct.cantidad = cantidad;
     reduct.total = cantidad * formatPrice(reduct.precio);
     dispatch(addProducts(reduct));
+    swal({
+      title: "Agregado",
+      text: `se agregó ${reduct.descripcion} al carrito`,
+      icon: "success",
+      timer: 800
+    }); 
   };
   const formatPrice = (number) => {
     return Number(number.replace(/[$.]/g, "").replace(",", "."));

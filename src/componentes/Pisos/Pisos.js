@@ -9,6 +9,7 @@ import ProductCard from "../Cards";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { pisosListMock } from "../../mockdata/mockPisosList";
+import swal from "sweetalert";
 
 const Pisos = () => {
   const [pisosList, setPisosList] = React.useState([]);
@@ -34,9 +35,65 @@ const Pisos = () => {
   }, []);
 
   const handleSubmit = (piso, cantidad) => {
+    let finded = products.find((pisos) => pisos.id === piso.id);
+    if(cantidad > 1000){
+      swal({
+        title: "Error",
+        text: "La cantidad maxima es de 1000",
+        icon: "error",
+      });
+      return;
+    };
+    if(products.length !== 0 && finded != undefined){
+      if(finded){
+        swal({
+          title: "Alerta",
+          text: `El producto ya esta en el carrito, desea sumarle ${cantidad}?`,
+          icon: "warning",
+          buttons: ["Cancelar", "Agregar"],
+        }).then(resp=>{
+          if(resp){
+            finded.cantidad = Math.floor(finded.cantidad);
+            cantidad = Math.floor(cantidad);
+            if((finded.cantidad += cantidad) >1000){
+              swal({
+                title: "Error",
+                text: "La cantidad maxima es de 1000",
+                icon: "error",
+              });
+              return finded.cantidad -= cantidad;
+            }else{
+              debugger;
+              finded.total = finded.cantidad * formatPrice(finded.precio);
+              dispatch(addProducts(finded));
+              swal({
+                title: "Agregado",
+                text: `se agregó ${piso.descripcion} al carrito`,
+                icon: "success",
+                timer: 800
+              });
+            };      
+            return;
+          }else{
+            swal({
+              title: "Alerta",
+              text: `Operación cancelada`,
+              icon: "warning",
+            });
+          };
+        });
+      };
+      return;
+    };
     piso.cantidad = cantidad;
     piso.total = cantidad * formatPrice(piso.precio);
-    dispatch(addProducts(piso));
+    dispatch(addProducts(piso)); 
+    swal({
+      title: "Agregado",
+      text: `se agregó ${piso.descripcion} al carrito`,
+      icon: "success",
+      timer: 800
+    });
   };
   const formatPrice = (number) => {
     return Number(number.replace(/[$.]/g, "").replace(",", "."));

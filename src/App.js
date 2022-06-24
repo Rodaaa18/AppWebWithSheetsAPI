@@ -1,5 +1,4 @@
 //-----------------------------------------------------------------------Components
-import Home from "./paginas/Home/Home";
 import Navbar from "./componentes/Navbar/Navbar";
 import Productos from "./componentes/Productos";
 import Presupuesto from "./componentes/Presupuesto/Presupuesto";

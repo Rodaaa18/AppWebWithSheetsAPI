@@ -9,6 +9,7 @@ import ProductCard from "../Cards";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { lucesListMock } from "../../mockdata/mockLucesList";
+import swal from "sweetalert";
 
 const Luces = () => {
   const [lucesList, setLucesList] = React.useState([]);
@@ -33,10 +34,67 @@ const Luces = () => {
   }, []);
 
   const handleSubmit = (luz, cantidad) => {
+    let finded = products.find((luces) => luces.id === luz.id);
+    if(cantidad > 1000){
+      swal({
+        title: "Error",
+        text: "La cantidad maxima es de 1000",
+        icon: "error",
+      });
+      return;
+    };
+    if(products.length !== 0 && finded != undefined){
+      if(finded){
+        swal({
+          title: "Alerta",
+          text: `El producto ya esta en el carrito, desea sumarle ${cantidad}?`,
+          icon: "warning",
+          buttons: ["Cancelar", "Agregar"],
+        }).then(resp=>{
+          if(resp){
+            finded.cantidad = Math.floor(finded.cantidad);
+            cantidad = Math.floor(cantidad);
+            if((finded.cantidad += cantidad) >1000){
+              swal({
+                title: "Error",
+                text: "La cantidad maxima es de 1000",
+                icon: "error",
+              });
+              return finded.cantidad -= cantidad;
+            }else{
+              debugger;
+              finded.total = finded.cantidad * formatPrice(finded.precio);
+              dispatch(addProducts(finded));
+              swal({
+                title: "Agregado",
+                text: `se agregó ${luz.descripcion} al carrito`,
+                icon: "success",
+                timer: 800
+              });
+            };      
+            return;
+          }else{
+            swal({
+              title: "Alerta",
+              text: `Operación cancelada`,
+              icon: "warning",
+            });
+          };
+        });
+      };
+      return;
+    };
     luz.cantidad = cantidad;
     luz.total = cantidad * formatPrice(luz.precio);
-    dispatch(addProducts(luz));
+    dispatch(addProducts(luz)); 
+    swal({
+      title: "Agregado",
+      text: `se agregó ${luz.descripcion} al carrito`,
+      icon: "success",
+      timer: 800
+    });
   };
+
   const formatPrice = (number) => {
     return Number(number.replace(/[$.]/g, "").replace(",", "."));
   };

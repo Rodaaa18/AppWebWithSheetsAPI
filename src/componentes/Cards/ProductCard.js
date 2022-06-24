@@ -22,6 +22,7 @@ const ProductCard = (props) => {
           <p className="precio_unitario">{content.precio}</p>
           <label className="card_body_text"> Cantidad: </label>
           <input
+            max="1000"
             className="cantidad"
             type="number"
             value={cantidad}
