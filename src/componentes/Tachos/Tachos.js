@@ -48,7 +48,7 @@ const Tachos = () => {
       if(finded){
         swal({
           title: "Alerta",
-          text: `El producto ya esta en el carrito, desea sumarle ${cantidad}?`,
+          text: `El producto ya esta en el carrito (Tienes ${finded.cantidad} agregados), desea sumarle ${cantidad}?`,
           icon: "warning",
           buttons: ["Cancelar", "Agregar"],
         }).then(resp=>{
