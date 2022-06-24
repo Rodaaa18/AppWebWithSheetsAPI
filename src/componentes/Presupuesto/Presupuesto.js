@@ -170,7 +170,7 @@ const Presupuesto = () => {
                   type="text"
                   name="total_tot"
                   id="total_tot"
-                  value={total}
+                  value={total.toFixed(2)}
                 />
               </td>
             </tr>

@@ -129,7 +129,7 @@ const Cestos = () => {
               data-bs-placement="top"
               title="No inlcuye Precio de envío"
             >
-              TOTAL CON IVA: {`$${total}`}
+              TOTAL CON IVA: {`$${total.toFixed(2)}`}
             </strong>
             <strong className="total__sub">(No incluye precio de envío)</strong>
             <Link className="total__sub2" to="/presupuesto">
