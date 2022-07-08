@@ -51,6 +51,7 @@
     width: 90%;
     text-decoration: none;
     color: red;
+    z-index: 50;
 }
 .total__sub2:hover{
     color: #7e5f03;

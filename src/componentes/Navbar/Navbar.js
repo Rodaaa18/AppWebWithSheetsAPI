@@ -3,6 +3,8 @@ import "./navbar.css";
 //R-R-D
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+
+
 const Navbar = () => {
   const alert = () => {
     swal(

@@ -13,6 +13,7 @@ const Presupuesto = () => {
   const [telefono, setTelefono] = useState("");
   const [email, setEmail] = useState("");
   const [precio_tot, setPrecio_tot] = useState(0);
+  const [responsable, setResponsable] = useState("");
   const dispatch = useDispatch();
 
   const calcTotal = () => {
@@ -52,7 +53,7 @@ const Presupuesto = () => {
       swal("Error", "¡No se encuentran Productos!", "error");
       return;
     }
-    if(nombreRazon === "" || direccion === "" || telefono === "" || email === ""){
+    if(nombreRazon === "" || direccion === "" || telefono === "" || email === "" || responsable === ""){
     swal("Error", "¡Todos los campos son obligatorios!", "error");
     return;
     }      
@@ -72,6 +73,7 @@ const Presupuesto = () => {
             telefono,
             email,
             products,
+            responsable,
             total,
             precio_tot,
           },
@@ -143,7 +145,7 @@ const Presupuesto = () => {
                     type="text"
                     name="total"
                     id="total"
-                    value={product.total}
+                    value={`$ ${product.total.toFixed(2).replace(".", ",")}`}
                     onChange={(e) => setPrecio_tot(e.target.value)}
                   />
                 </td>
@@ -170,7 +172,7 @@ const Presupuesto = () => {
                   type="text"
                   name="total_tot"
                   id="total_tot"
-                  value={total.toFixed(2)}
+                  value={`$${total.toFixed(2).replace(".", ",")}`}
                 />
               </td>
             </tr>
@@ -185,6 +187,15 @@ const Presupuesto = () => {
               name="nombreRazon"
               id="nombreRazon"
               onChange={(e) => setNombreRazon(e.target.value)}
+            />
+          </label>
+          <label htmlFor="responsable">
+            Responsable:
+            <input
+              type="text"
+              name="responsable"
+              id="responsable"
+              onChange={(e) => setResponsable(e.target.value)}
             />
           </label>
           <label htmlFor="direccion" id="direccionLabel">
