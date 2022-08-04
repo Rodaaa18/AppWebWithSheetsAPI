@@ -87,7 +87,7 @@ const Presupuesto = () => {
           if (res.data === "received") {
             return swal(
               "¡Email enviado Correctamente!",
-              "¡Recibirás respuesta a la brevedad",
+              "¡Recibirás respuesta a la brevedad, Los precios indicados pueden ser modificados sin previo aviso",
               "success"
             );
           }

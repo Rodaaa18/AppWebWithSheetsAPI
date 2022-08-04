@@ -106,12 +106,6 @@ const Productos = () => {
   };
   useEffect(() => {
     setTotal(products.reduce((prev, curr) => (prev += curr.total), 0));
-    swal({
-      title: "¡Advertencia!",
-      text: "Los precios indicados pueden ser modificados sin previo aviso",
-      icon: "warning",
-      button: "Aceptar",
-    })
   }, [products]);
 
   return (
